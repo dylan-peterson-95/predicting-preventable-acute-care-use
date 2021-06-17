@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,9 +17,6 @@ warnings.filterwarnings('ignore')
 # This notebook is for running all of the models we generated that were not in R (i.e. all models except for the LASSO models). To use the primary model reported in our paper, use `run_LASSO.r`. 
 # 
 # Here we use our simulated data generated in `generate_simulated_data.ipynb` but one could load and use their own data if they format their data to match.
-
-# In[2]:
-
 
 def scale_data(X_test):    
     
@@ -52,9 +46,6 @@ def bootstrap(df, outcome):
                          2.5), np.percentile(np.array(aucs), 97.5)
 
 
-# In[3]:
-
-
 # load our data and labels (change to your own path, if using your own data)
 data_path = "../data/simulated_data/simulated_feature_matrix.csv"
 outcome_path = "../data/simulated_data/simulated_outcomes.csv"
@@ -64,16 +55,10 @@ data = pd.read_csv(data_path).drop("DEMO_NON_PALLIATIVE",axis=1)
 outcomes = pd.read_csv(outcome_path)
 
 
-# In[4]:
-
-
 # scale the data for preprocessing
 X = scale_data(data.set_index("PAT_DEID"))
 
-
-# In[5]:
-
-
+# define our model path
 model_path = "../models/rf_any_180.joblib"
 
 # loads the model trained on our data
@@ -90,16 +75,10 @@ outcomes["predictions"] = predictions_prob
 outcomes.head()
 
 
-# In[6]:
-
-
 # calculate the AUROC's CIs via bootstrap
 # as expected with random data, we do not have accurate predictions
 mean, ci_low, ci_high = bootstrap(outcomes, outcome)
 print(f'AUROC is: {round(mean,3)}, 95% CI: [{round(ci_low,3)}-{round(ci_high,3)}]')
-
-
-# In[7]:
 
 
 # plot the ROC curve
@@ -145,10 +124,4 @@ axes.set_title('ROC Curve')
 
 plt.tight_layout()
 plt.show()
-
-
-# In[ ]:
-
-
-
-
+plt.savefig("example.png")
