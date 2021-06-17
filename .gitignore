@@ -1,3 +1,11 @@
+data/feature_matrices/*
+data/preprocessed/*
+data/raw_data/*
+data/n_10893_ID_CHE.csv
+data/n_10893.csv
+ALL_COEF_DATA_2_16.csv
+ALL_COEF_DATA_2_17.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
